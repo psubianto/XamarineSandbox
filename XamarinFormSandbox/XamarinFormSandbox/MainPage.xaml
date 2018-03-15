@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:XamarinFormSandbox"
+			 x:Class="XamarinFormSandbox.MainPage"
+			 Title="Search Warrant - Seized Property Module">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<!--<local:MainPageViewModel x:Key="vm" />-->
+			<Style TargetType="Label" x:Key="headingStyle">
+				<Setter Property="FontSize" Value="20" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+			<Style TargetType="Label" x:Key="bodyStyle">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<ContentPage.Content>
+		<StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" >
+			<StackLayout HorizontalOptions="Center">
+				<Label Text="Police Incident Number" Style="{StaticResource bodyStyle}"/>
+				<Entry Text="{Binding IncidentNo}"/>
+				<Label Text="Warrant Control Number" Style="{StaticResource bodyStyle}"/>
+				<Entry Text="{Binding WarrantNo}"/>
+				<StackLayout Padding="0,10,0,10">
+					<Button Text="Find Warrants" Command="{Binding SearchWarrantCommand}" HorizontalOptions="Start"/>
+				</StackLayout>
+				<Label Text="Please Select Warrant On File" Style="{StaticResource headingStyle}"/>
+				<Picker x:Name="pickerWarrantySelected" Title="Tap here to Select Warrant" 
+						ItemDisplayBinding="{Binding WarrantNo}"
+						ItemsSource="{Binding WarrantList}" 
+						SelectedItem="{Binding WarrantSelected, Mode=TwoWay}"/>
+			</StackLayout>
+			<Label Text="List of Items Seized"/>
+			<Button Text="Add Item" HorizontalOptions="Start"/>
+			<ListView ItemsSource="{Binding WarrantList}">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ViewCell.View>
+								<!--<StackLayout BackgroundColor="#eee" Orientation="Vertical">
+									<StackLayout Orientation="Horizontal">
+										<Image Source="{Binding Image}" />-->
+								<StackLayout Orientation="Vertical">
+									<Label Text="Warrant Control Number:"/>
+									<Entry Text="{Binding WarrantNo}" TextColor="#f35e20" />
+									<Label Text="Warrant Date:"/>
+									<DatePicker Date="{Binding WarrantDate}" TextColor="#f35e20" />
+									<!--<Entry Text="{Binding Description}" HorizontalOptions="EndAndExpand" TextColor="#503026" />-->
+								</StackLayout>
+									<!--</StackLayout>
+								</StackLayout>-->
+							</ViewCell.View>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+		
+
+</ContentPage>
